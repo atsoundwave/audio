@@ -5,6 +5,7 @@ x-common-variables: &common-variables
   POSTGRES_USER: postgres
   POSTGRES_PASSWORD: postgres
   POSTGRES_DB: audio
+  DATABASE_URL: postgres://postgres:postgres@localhost:5432/audio
 
 services:
   server:
