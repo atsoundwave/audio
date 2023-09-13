@@ -21,6 +21,7 @@ async fn main() -> std::io::Result<()> {
     env_logger::init();
 
     let database_url = env::var("DATABASE_URL").expect("DATABASE_URL must be set");
+    log::info!("Database URL: {}", database_url);
 
     let pool = match PgPoolOptions::new()
         .max_connections(10)
