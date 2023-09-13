@@ -1,0 +1,26 @@
+version: "3.9"
+
+# Configure the service here
+x-common-variables: &common-variables
+  POSTGRES_USER: postgres
+  POSTGRES_PASSWORD: postgres
+  POSTGRES_DB: audio
+
+services:
+  server:
+    image: ghcr.io/angelsflyinhell/audio-server:latest
+    container_name: audio_server
+    restart: unless-stopped
+    ports:
+      - 4300:80
+    environment:
+      <<: *common-variables
+      
+  db:
+    image: postgres:latest
+    container_name: audio_db_1
+    restart: unless-stopped
+    environment:
+      <<: *common-variables
+    volumes:
+      - ./db:/var/lib/postgresql/data
