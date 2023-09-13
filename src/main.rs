@@ -44,6 +44,7 @@ async fn main() -> std::io::Result<()> {
         let logger = Logger::default();
         
         let cors = Cors::default()
+            .send_wildcard()
             .allowed_methods(vec!["GET", "POST", "PATCH", "DELETE"])
             .allowed_headers(vec![
                 header::CONTENT_TYPE,
