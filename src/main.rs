@@ -4,6 +4,8 @@ use actix_cors::Cors;
 use actix_web::{http::header, middleware::Logger, web::Data, App, HttpServer};
 use sqlx::{postgres::PgPoolOptions, Pool, Postgres};
 
+use crate::utils::db::setup::setup_tables;
+
 mod routes;
 mod utils;
 
@@ -27,6 +29,7 @@ async fn main() -> std::io::Result<()> {
     {
         Ok(pool) => {
             log::info!("Connected to database");
+            setup_tables(&pool).await;
             pool
         }
         Err(err) => {
@@ -52,6 +55,7 @@ async fn main() -> std::io::Result<()> {
             .wrap(logger)
             .wrap(cors)
             .service(routes::core::ping::ping)
+            .service(routes::auth::user_signup::user_signup)
     })
     .bind(("0.0.0.0", 80))?
     .run()
