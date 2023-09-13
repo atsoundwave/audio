@@ -36,6 +36,7 @@ pub async fn user_signup(
     if username_exists(&body.username, &db.db).await {
         return Json(Response {
             success: false,
+            status: 409,
             message: "Username already exists".to_string(),
             data: None,
         });
@@ -49,6 +50,7 @@ pub async fn user_signup(
 
     Json(Response {
         success: true,
+        status: 201,
         message: "User created successfully".to_string(),
         data: Some(UserSignupResponse {
             user_id: user.id,

@@ -29,7 +29,6 @@ async fn main() -> std::io::Result<()> {
     {
         Ok(pool) => {
             log::info!("Connected to database");
-            setup_tables(&pool).await;
             pool
         }
         Err(err) => {
@@ -38,9 +37,11 @@ async fn main() -> std::io::Result<()> {
         }
     };
 
+    setup_tables(&pool).await;
+
     HttpServer::new(move || {
         let logger = Logger::default();
-
+        
         let cors = Cors::default()
             .allowed_methods(vec!["GET", "POST", "PATCH", "DELETE"])
             .allowed_headers(vec![

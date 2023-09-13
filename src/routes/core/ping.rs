@@ -10,6 +10,7 @@ pub struct PingResponse {
 pub async fn ping() -> Json<Response<PingResponse>> {
     Json(Response {
         success: true,
+        status: 200,
         message: "Pong".to_string(),
         data: None,
     })
