@@ -5,7 +5,7 @@ x-common-variables: &common-variables
   POSTGRES_USER: postgres
   POSTGRES_PASSWORD: postgres
   POSTGRES_DB: audio
-  DATABASE_URL: postgres://postgres:postgres@localhost:5433/audio
+  DATABASE_URL: postgres://postgres:postgres@db:5432/audio
 
 services:
   server:
@@ -18,9 +18,7 @@ services:
       <<: *common-variables
     depends_on:
       - db
-    networks:
-      - audio
-      
+
   db:
     image: postgres:latest
     container_name: audio_db_1
@@ -29,11 +27,3 @@ services:
       <<: *common-variables
     volumes:
       - ./db:/var/lib/postgresql/data
-    ports:
-      - 5433:5432
-    networks:
-      - audio
-
-networks:
-  default:
-      name: audio
