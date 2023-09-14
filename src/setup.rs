@@ -21,7 +21,8 @@ pub async fn setup_tables(db: &Pool<Postgres>) {
         CREATE TABLE IF NOT EXISTS sessions (
             id TEXT PRIMARY KEY,
             user_id TEXT NOT NULL,
-            token TEXT NOT NULL,
+            session_token TEXT NOT NULL,
+            refresh_token TEXT NOT NULL,
             created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
             expires_at TIMESTAMPTZ NOT NULL DEFAULT NOW() + INTERVAL '1 day',
             FOREIGN KEY (user_id) REFERENCES users (id)
