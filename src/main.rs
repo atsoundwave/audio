@@ -61,6 +61,7 @@ async fn main() -> std::io::Result<()> {
             .service(routes::auth::user_signup::user_signup)
             .service(routes::auth::user_login::user_login)
             .service(routes::auth::session_refresh::session_refresh)
+            .service(routes::auth::session_info::session_info)
     })
     .bind(("0.0.0.0", 80))?
     .run()
