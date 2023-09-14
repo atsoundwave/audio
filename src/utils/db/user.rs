@@ -26,6 +26,21 @@ pub async fn username_exists(username: &str, db: &Pool<Postgres>) -> bool {
     result.exists.unwrap()
 }
 
+pub async fn get_user_by_id(user_id: &str, db: &Pool<Postgres>) -> Option<User> {
+    let result = sqlx::query_as!(
+        User,
+        r#"SELECT id, username FROM users WHERE id = $1"#,
+        user_id
+    )
+    .fetch_one(db)
+    .await;
+
+    match result {
+        Ok(user) => Some(user),
+        Err(_) => None,
+    }
+}
+
 pub async fn get_user_by_username(username: &str, db: &Pool<Postgres>) -> Option<User> {
     let result = sqlx::query_as!(
         User,
