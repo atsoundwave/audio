@@ -1,0 +1,12 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "\n        CREATE TABLE IF NOT EXISTS cover_art (\n            id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,\n            song_id TEXT NOT NULL UNIQUE,\n            image_url TEXT NOT NULL\n        )\n        ",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Left": []
+    },
+    "nullable": []
+  },
+  "hash": "af123186281ee252b1674e3734f98973d75d2fa39d0523f1c984a0b34c2ec185"
+}

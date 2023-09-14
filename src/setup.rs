@@ -34,4 +34,19 @@ pub async fn setup_tables(db: &Pool<Postgres>) {
     .unwrap();
 
     log::info!("Created table sessions");
+
+    sqlx::query!(
+        r#"
+        CREATE TABLE IF NOT EXISTS cover_art (
+            id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+            song_id TEXT NOT NULL UNIQUE,
+            image_url TEXT NOT NULL
+        )
+        "#
+    )
+    .execute(db)
+    .await
+    .unwrap();
+
+    log::info!("Created table cover_art");
 }
