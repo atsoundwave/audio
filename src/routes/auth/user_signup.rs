@@ -25,7 +25,8 @@ pub struct UserSignupRequest {
 pub struct UserSignupResponse {
     pub user_id: String,
     pub username: String,
-    pub token: String,
+    pub session_token: String,
+    pub refresh_token: String,
 }
 
 #[post("/auth/user/signup")]
@@ -46,7 +47,7 @@ pub async fn user_signup(
 
     let user = get_user_by_username(&body.username, &db.db).await.unwrap();
 
-    let token = create_session(user.id.clone(), &db.db).await;
+    let (session, refresh) = create_session(user.id.clone(), &db.db).await;
 
     Json(Response {
         success: true,
@@ -55,7 +56,8 @@ pub async fn user_signup(
         data: Some(UserSignupResponse {
             user_id: user.id,
             username: user.username,
-            token,
+            session_token: session,
+            refresh_token: refresh,
         }),
     })
 }

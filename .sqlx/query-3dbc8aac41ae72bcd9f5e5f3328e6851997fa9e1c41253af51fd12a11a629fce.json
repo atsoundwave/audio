@@ -1,0 +1,12 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "\n        CREATE TABLE IF NOT EXISTS sessions (\n            id TEXT PRIMARY KEY,\n            user_id TEXT NOT NULL,\n            session_token TEXT NOT NULL,\n            refresh_token TEXT NOT NULL,\n            created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),\n            expires_at TIMESTAMPTZ NOT NULL DEFAULT NOW() + INTERVAL '1 day',\n            FOREIGN KEY (user_id) REFERENCES users (id)\n        )\n        ",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Left": []
+    },
+    "nullable": []
+  },
+  "hash": "3dbc8aac41ae72bcd9f5e5f3328e6851997fa9e1c41253af51fd12a11a629fce"
+}
